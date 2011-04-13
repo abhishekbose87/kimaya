@@ -2,6 +2,7 @@ module Kimaya
   class TPNCalc
 
     include ActiveModel::Validations
+    include ActiveModel::Translations
     include KimayaCore
     validates_with TPNValidator 
 
