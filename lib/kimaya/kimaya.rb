@@ -7,7 +7,7 @@ module Kimaya
     include KimayaCore
     #validates_with TPNValidator 
 
-    validates :day_of_tpn, :presence => true
+    validates :day_of_tpn, :presence => true, :message => :day_of_tpn_blank
 
     def initialize(options= {})
       @day_of_tpn = options.fetch(:day_of_tpn, 1)
