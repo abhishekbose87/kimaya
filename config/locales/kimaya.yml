@@ -1,0 +1,185 @@
+en:
+  errors:
+    "0000": 
+      message: "Unable to connect to the Data Base.Please Contact the System Administrator. The Application Will Terminate !!!"
+      comment: "dataBaseNotAvailable"
+    "1001":
+      message: "You have entered an invalid value for Day of TPN, please enter the correct value."
+      comment: "invalidDayOfTPN"
+    "1002": 
+      message: "You have entered an invalid value for Dextrose Concentration, please enter the correct value."
+      comment: "invalidPercentDextroseConcentration"
+    "1003":
+      message: "You have entered an invalid value for Current Weight, please enter the correct value."
+      comment: "invalidCurrentWeight"
+    "1004":
+      message: "You have entered an invalid value for Fluid Intake.The Recommended range is between 40 to 250 ml/kg/day."
+      comment: "invalidTotalFluidIntake"
+    "1005":
+      message: "You have entered an invalid value for Fluid Intake / Current Weight, please enter the correct value(s)."
+      comment: "invalidTotalFluidIntakeVolume"
+    "1006":
+      message: "You have entered an invalid value for Feed Volume, please enter the correct value."
+      comment: "invalidFeedVolume"
+    "1007":
+      message: "You have entered an invalid value for Losses, please enter the correct value."
+      comment: "invalidLosses"
+    "1008":
+      message: "You have entered an invalid value for Fluid Intake / Current Weight / Feed Volume / Losses, please enter the correct value(s)."
+      comment: "invalidTPNVolume" 
+    "1009":
+      message: "You have entered an invalid value for FAT Volume Intake, please enter the correct value."
+      comment: "invalidFATVolumeIntake"
+    "1010":
+      message: "You have not selected a value for Lipid Concentration, please select the value."
+      comment: "invalidLipidConcentration" 
+    "1011":
+      message: "You have entered an invalid value for FAT Volume Intake, please enter the correct value."
+      comment: "invalidFATVolume"
+    "1012":
+      message: "You have entered an invalid value for Fluid Intake / Current Weight / Feed Volume / Losses / FAT Volume Intake, please enter the correct value(s)."
+      comment: "invalidHAVSolution"
+    "1013":
+      message: "You have entered an invalid value for Overfill Factor, please enter the correct value."
+      comment: "invalidOverfillFactor"
+    "1014":
+      message: "You have entered an invalid value for Fluid Intake / Current Weight / Feed Volume / Losses / FAT Volume Intake / Overfill Factor, please enter the correct value(s)."
+      comment: "invalidPreparedOverfill"
+    "1015":
+      message: "You have entered an invalid value for Amino Acid, please enter the correct value."
+      comment: "invalidAminoAcidIntake"
+    "1016":
+      message: "You have selected an invalid value for Amino Acid Concentration, please select the correct value."
+      comment: "invalidAminoAcidConcentration"
+    "1017":
+      message: "You have entered an invalid value for Amino Acid / Current Weight / Overfill Factor, please enter the correct value(s)."
+      comment: "invalidAminoAcid"
+    "1018":
+      message: "You have entered an invalid value for Sodium Chloride, please enter the correct value."
+      comment: "invalidSodiumChlorideIntake"
+    "1019":
+      message: "You have selected an invalid value for Sodium Chloride Concentration, please select the correct value."
+      comment: "invalidSodiumChlorideConcentration"
+    "1020":
+      message: "You have entered an invalid value for Sodium Chloride / Current Weight / Overfill Factor, please enter the correct value(s)."
+      comment: "invalidSodiumChloride"
+    "1021":
+      message: "You have entered an invalid value for Potassium Chloride, please enter the correct value."
+      comment: "invalidPotassiumChlorideIntake"
+    "1022":
+      message: "You have selected an invalid value for Potassium Chloride Concentration, please select the correct value."
+      comment: "invalidPotassiumChlorideConcentration"
+    "1023":
+      message: "You have entered an invalid value for Potassium Chloride / Current Weight / Overfill Factor, please enter the correct value(s)."
+      comment: "invalidPotassiumChloride"
+    "1024":
+      message: "You have entered an invalid value for Calcium, please enter the correct value."
+      comment: "invalidCalciumIntake"
+    "1025":
+      message: "You have selected an invalid value for Calcium Concentration, please select the correct value."
+      comment: "invalidCalciumConcentration"
+    "1026":
+      message: "You have entered an invalid value for Calcium / Current Weight / Overfill Factor, please enter the correct value(s)."
+      comment: "invalidCalcium"
+    "1027":
+      message: "You have entered an invalid value for Magnesium, please enter the correct value."
+      comment: "invalidMagnesiumIntake"
+    "1028":
+      message: "You have selected an invalid value for Magnesium Concentration, please select the correct value."
+      comment: "invalidMagnesiumConcentration"
+    "1029":
+      message: "You have entered an invalid value for Magnesium / Current Weight / Overfill Factor, please enter the correct value(s)."
+      comment: "invalidMagnesium"
+    "1037":
+      message: "CNR is Out of Range.The Recommended value is above 150. Do you want to continue?"
+      comment: "invalidCNRRate"
+    "1040":
+      message: "The Dextrose Infusion Rate should always be less than 12mg/kg/min. Do you want to continue?"
+      comment: "invalidDIRRate"
+    "1043":
+      message: "Patient not selected. Please select a patient from the patients list."
+      comment: "patientNotSelected"
+    "1501":
+      message: "Fluid Intake is Out of Range. The Recommended range is between 100 to 120 ml/kg/day. Do you want to continue?"
+      comment: "totalFluidIntakeOutOfRangeLessthan10"
+    "1502":
+      message: "Fluid Intake is Out of Range. The Recommended range is between 60 to 90 ml/kg/day. Do you want to continue?"
+      comment: "totalFluidIntakeOutOfRangeMorethan10"
+    "1503":
+      message: "Fluid Intake is Out of Range. The Recommended range is between 40 to 90 ml/kg/day. Do you want to continue?"
+      comment: "totalFluidIntakeOutOfRangeMorethan30"
+    "1504":
+      message: "Sum of Additive Nutrients are 0.Do you want to continue?"
+      comment: "totalAdditiveNutrients"
+
+  help:
+    "101":
+      message: "It will display the registration number of the patient which you will select from next drop down list."
+    "102":
+      message: "A new TPN calculation can be made for the selected patient. The latest TPN values (if available) will be shown for the selected patient."
+    "103":
+      message: "Click the link to view the selected patient's details."
+    "104":
+      message: "Enter the day of TPN. The day of initiation of TPN is taken as day 1. Subsequent days are counted from this day onwards."
+    "105":
+      message: "Enter the current body weight of the infant in kg. If the current weight is less than the birth weight, then the birth weight will be taken for calculation."
+    "106":
+      message: "Enter the expected dextrose concentration(%). Generally, 10% dextrose solution is prepared for administration. However, individual changes are necessary depending on the patient's tolerance. It is recommended that solutions with a dextrose concentration greater than 12.5% be administered through central line. The normal range for  Dextrose Concentration of a solution is 5 - 20 %."
+    "107":
+      message: "Enter the total fluid intake as per patients age and clinical condition. Fluid intake is the total amount of fluid that a patient should receive throughout the day. It includes enteral as well as parenteral fluid volumes. It is expressed in ml/kg/day. It should be decided as per the patient's age and clinical condition. The range for fluid intake is as follows - "
+    "108":
+      message: "Enter the  enteral feed volume intake. This includes all oral as well as Nasogastric Tube i.e., NGT feed administered to the patient and it is expressed in ml/day."
+    "109":
+      message: "Enter the surgical losses. These losses include nasogastric aspirates, losses through drains or shunts, etc. and it is expressed in ml/day."
+    "110":
+      message: "Enter the fat requirement. The broad range of the fat requirement for infants and children is 0 - 4gm/kg/day. Generally fat is initiated at 0.5-1gm/kg/day and it is graded up gradually by 0.5gm/kg/day to a maximum of 3.0-4.0gm/kg/day as per tolerance. In certain clinical conditions, administration of fats may be contraindicated. It is advised that you go through standard medical literature before you prescribe fat to the patient."
+    "111":
+      message: "Select lipid concentration (%). Lipid concentration indicates the concentration of the fat or lipid emulsion. Fat emulsions are available as 10% and  20%. It is recommended that for VLBW and ELBW infants, the 20% emulsion be used as it has less phospholipid to triglyceride ratio."
+    "112":
+      message: "Enter the Overfill Factor for the solution. Overfill factor is a factor that accounts for the losses of fluid that occurs due to wastage during administration. This is usually the fluid that is left behind in IV bottles, tubings and extension sets. This volume is generally 20% therefore overfill factor is taken as 1.2. However, it may be modified depending on individual prepared volume (1.3 for smaller volumes and 1.1 for larger volumes) "
+    "113":
+      message: "The normal range for amino acid intake by infants and children is 0.5 - 3.5gm/kg/day. Amino acids are generally introduced at 0.5 - 1gm/kg/day and it is graded up by 0.5 - 1gm/kg/day as warranted by the clinical condition. Standard medical literature should be referred to before deciding the amino acid requirement of the patient. Providing protein in excess of the need may result in hyperammonemia, metabolic acidosis and elevated BUN concentrations and may increase the risk of cholestasis."
+    "114":
+      message: "Click to select the Marketing Additive for Amino Acid."
+    "115":
+      message: "Displays the selected Amino Acid concentration, clik on the button on the left side of this control to select available Amino Acid concentration."
+    "116":
+      message: "The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion. Click on the button to the right to select one of the available Sodium Chloride solutions. Sodium Chloride must be between"
+    "117":
+      message: "Click to select Marketing Additive for Sodium Chloride."
+    "118":
+      message: "Displays the selected Sodium Chloride Marketing Additive constant, clik on the button on the left side of this control to select available Sodium Chloride Marketing Additive constant."
+    "119":
+      message: "The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion. Click on the button to the right to select one of the available Potassium Chloride solutions. Potassium Chloride must be between "
+    "120":
+      message: "Click to select required Marketing Additive constant for Potassium Chloride."
+    "121":
+      message: "Displays the selected Potassium Chloride Marketing Additive constant, clik on the button on the left side of this control to select available Potassium Chloride Marketing Additive constant.  The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion."
+    "122":
+      message: "The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion. Click on the button to the right to select one of the available Calcium solutions. Calcium must be between"
+    "123":
+      message: "Click to select required Marketing Additive constant for Calcium."
+    "124":
+      message: "Displays the selected Calcium Marketing Additive constant, clik on the button on the left side of this control to select available Calcium Marketing Additive constant.  The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion."
+    "125":
+      message: "The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion. Click on the button to the right to select one of the available Magnesium solutions. Magnesium must be between" 
+    "126":
+      message: "Click to select required Marketing Additive constant for Magnesium."
+    "127":
+      message: "Displays the selected Magnesium Marketing Additive constant, clik on the button on the left side of this control to select available Magnesium Marketing Additive constant.  The dose should be decided based on daily requirements, serum electrolyte values and clinical discretion."
+    "128":
+      message: "This is help window which provides the help about the TPN Calculations."
+    "129":
+      message: "It will generate the TPN Calculation Report."
+    "130":
+      message: "You will lose all the information entered."
+    "131":
+      message: "Administration chosen as Peripheral Line."
+    "132":
+      message: "Administration chosen as Central Line."
+    "133":
+      message: "Enter the Intake values for the Additives."
+    "134":
+      message: "To get correct range of CNR decrease the amount of Amino acid given to the patient"
+    "135":
+      message : "To get correct range of DIR decrease the amount of Fluid Intake."
