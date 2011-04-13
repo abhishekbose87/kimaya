@@ -4,7 +4,7 @@ module Kimaya
     amino_acid_intake amino_acid_conc administration}
     def validate(record)
       REQUIRED_FIELDS.each do |field|
-        record.errors["#{field}"] << :day_of_tpn eval("record.#{field}.blank?")
+        record.errors["#{field}"] << :day_of_tpn if eval("record.#{field}.blank?")
       end
     end
   end
