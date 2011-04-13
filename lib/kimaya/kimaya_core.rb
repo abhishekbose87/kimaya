@@ -1,3 +1,5 @@
+require  File.dirname(__FILE__) + '/validator'
+
 module Kimaya
   module KimayaCore
     include ActiveModel::Validations
