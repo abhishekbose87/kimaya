@@ -2,9 +2,6 @@ require  File.dirname(__FILE__) + '/validator'
 
 module Kimaya
   module KimayaCore
-    include ActiveModel::Validations
-    validates_with TPNValidator 
-
     attr_accessor :day_of_tpn, :current_weight, 
       :percent_dextrose_conc, :total_fluid_intake, :total_fluid_intake_vol, :feed_vol, 
       :losses, :tpn_vol, :fat_intake, :fat_vol, :lipid_conc, :hav_vol, 
