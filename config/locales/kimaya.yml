@@ -1,14 +1,15 @@
 en:
   errors:
-    0000: 
-      message: "Unable to connect to the Data Base.Please Contact the System Administrator. The Application Will Terminate !!!"
-      comment: "dataBaseNotAvailable"
-    1001:
-      message: "You have entered an invalid value for Day of TPN, please enter the correct value."
-      comment: "invalidDayOfTPN"
-    "1002": 
-      message: "You have entered an invalid value for Dextrose Concentration, please enter the correct value."
-      comment: "invalidPercentDextroseConcentration"
+    messages:
+      0000: 
+        message: "Unable to connect to the Data Base.Please Contact the System Administrator. The Application Will Terminate !!!"
+        comment: "dataBaseNotAvailable"
+      1001:
+        message: "You have entered an invalid value for Day of TPN, please enter the correct value."
+        comment: "invalidDayOfTPN"
+      1002: 
+        message: "You have entered an invalid value for Dextrose Concentration, please enter the correct value."
+        comment: "invalidPercentDextroseConcentration"
     "1003":
       message: "You have entered an invalid value for Current Weight, please enter the correct value."
       comment: "invalidCurrentWeight"
