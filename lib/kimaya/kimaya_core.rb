@@ -14,6 +14,10 @@ module Kimaya
       :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
       :cho_calories, :cnr_rate, :calories, :non_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration
 
+    validates_each :day_of_tpn, :current_weight do |record, attr, value|
+      record.errors.add attr, 'cant be blank' if value.blank?
+    end
+
     def round(value, scale)
       "%.#{scale}f" % value
     end
