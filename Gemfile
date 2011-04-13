@@ -1,5 +1,5 @@
 source "http://rubygems.org"
 
-gem 'activemodel', :require => "active_model"
+gem "activemodel"
 # Specify your gem's dependencies in kimaya.gemspec
 gemspec
