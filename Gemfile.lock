@@ -19,4 +19,5 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel
+  i18n
   kimaya!
