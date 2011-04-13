@@ -1,13 +1,13 @@
 en:
   errors:
     messages:
-      0000: 
+      database: 
         message: "Unable to connect to the Data Base.Please Contact the System Administrator. The Application Will Terminate !!!"
         comment: "dataBaseNotAvailable"
-      1001:
+      day_of_tpn:
         message: "You have entered an invalid value for Day of TPN, please enter the correct value."
         comment: "invalidDayOfTPN"
-      1002: 
+      dextrose_conc: 
         message: "You have entered an invalid value for Dextrose Concentration, please enter the correct value."
         comment: "invalidPercentDextroseConcentration"
     "1003":
