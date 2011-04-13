@@ -1,8 +1,8 @@
 module Kimaya
   class TPNCalc
 
-    include KimayaCore
     include ActiveModel::Validations
+    include KimayaCore
     validates_with TPNValidator 
 
     def initialize(options= {})
