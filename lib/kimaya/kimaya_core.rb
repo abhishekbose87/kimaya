@@ -1,25 +1,27 @@
-module KimayaCore
-  include ActiveModel::Validations
-  validates_with TPNValidator 
+module Kimaya
+  module KimayaCore
+    include ActiveModel::Validations
+    validates_with TPNValidator 
 
-  attr_accessor :day_of_tpn, :current_weight, 
-    :percent_dextrose_conc, :total_fluid_intake, :total_fluid_intake_vol, :feed_vol, 
-    :losses, :tpn_vol, :fat_intake, :fat_vol, :lipid_conc, :hav_vol, 
-    :overfill_factor, :prepared_overfill,
-    :amino_acid_intake, :amino_acid_conc, :amino_acid_vol,
-    :sodium_chloride_intake, :sodium_chloride_conc, :sodium_chloride_vol,
-    :potassium_chloride_intake, :potassium_chloride_conc, :potassium_chloride_vol,
-    :calcium_intake, :calcium_conc, :calcium_vol,
-    :magnesium_intake, :magnesium_conc, :magnesium_vol,
-    :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
-    :cho_calories, :cnr_rate, :calories, :non_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration
+    attr_accessor :day_of_tpn, :current_weight, 
+      :percent_dextrose_conc, :total_fluid_intake, :total_fluid_intake_vol, :feed_vol, 
+      :losses, :tpn_vol, :fat_intake, :fat_vol, :lipid_conc, :hav_vol, 
+      :overfill_factor, :prepared_overfill,
+      :amino_acid_intake, :amino_acid_conc, :amino_acid_vol,
+      :sodium_chloride_intake, :sodium_chloride_conc, :sodium_chloride_vol,
+      :potassium_chloride_intake, :potassium_chloride_conc, :potassium_chloride_vol,
+      :calcium_intake, :calcium_conc, :calcium_vol,
+      :magnesium_intake, :magnesium_conc, :magnesium_vol,
+      :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
+      :cho_calories, :cnr_rate, :calories, :non_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration
 
-  def round(value, scale)
-    "%.#{scale}f" % value
+    def round(value, scale)
+      "%.#{scale}f" % value
+    end
   end
+end
 
-
-
+=begin
   @invalidValue = -1
   @invalidDayOfTPN = "1001"
   @invalidPercentDextroseConcentration = "1002"
@@ -63,4 +65,4 @@ module KimayaCore
   @invalidDextrose50 = "1042"
   @invalidWater = "1043"
   @invalidHeparin = "1044"
-end
+=end
