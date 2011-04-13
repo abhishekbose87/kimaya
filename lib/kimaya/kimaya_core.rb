@@ -14,6 +14,7 @@ module Kimaya
       :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
       :cho_calories, :cnr_rate, :calories, :non_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration
 
+    validates :day_of_tpn, :presence => true
     def round(value, scale)
       "%.#{scale}f" % value
     end
