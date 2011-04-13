@@ -2,9 +2,10 @@ module Kimaya
   class TPNCalc
 
     include ActiveModel::Validations
-    include ActiveModel::Translations
+    include ActiveModel::Conversion
+    extend ActiveModel::Naming
     include KimayaCore
-    validates_with TPNValidator 
+    #validates_with TPNValidator 
 
     def initialize(options= {})
       @day_of_tpn = options.fetch(:day_of_tpn, 1)
