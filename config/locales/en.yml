@@ -1,7 +1,6 @@
 en:
   errors:
-    messages:
-      day_of_tpn_blank: "You have entered an invalid value for Day of TPN, please enter the correct value."
+    day_of_tpn_blank: "You have entered an invalid value for Day of TPN, please enter the correct value."
       messages:
         database: "Unable to connect to the Data Base.Please Contact the System Administrator. The Application Will Terminate !!!"
         dextrose_conc: 

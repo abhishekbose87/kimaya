@@ -493,7 +493,7 @@ module Kimaya
       amino_acid_vol + sodium_chloride_vol + potassium_chloride_vol + calcium_vol + magnesium_vol + mvi + heparin
     end
 
-    def i18n_scope
+    def self.i18n_scope
       :errors
     end
   end
