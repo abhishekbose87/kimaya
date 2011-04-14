@@ -3,7 +3,7 @@ module Kimaya
 
     include ActiveModel::Validations
     include ActiveModel::Conversion
-    extend ActiveModel::Naming
+    #extend ActiveModel::Naming
     include KimayaCore
     #validates_with TPNValidator 
 
