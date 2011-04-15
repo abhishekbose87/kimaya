@@ -22,14 +22,14 @@ module Kimaya
       @overfill_factor = initialize_key(options, :overfill_factor, 2)
       @amino_acid_intake = initialize_key(options, :amino_acid_intake, 3)
       @amino_acid_conc = initialize_key(options, :amino_acid_conc, 3)
-      @sodium_chloride_intake = initialize_key(options, :sodium_chloride_intake, 3)
-      @sodium_chloride_conc = initialize_key(options, :sodium_chloride_conc, 3)
-      @potassium_chloride_intake = initialize_key(options, :potassium_chloride_intake, 3)
-      @potassium_chloride_conc = initialize_key(options, :potassium_chloride_conc, 3)
-      @magnesium_intake = initialize_key(options, :magnesium_intake, 3)
-      @magnesium_conc = initialize_key(options, :magnesium_conc, 3)
-      @calcium_intake = initialize_key(options, :calcium_intake, 3)
-      @calcium_conc = initialize_key(options, :calcium_conc, 3)
+      @sodium_chloride_intake = initialize_key(options, :sodium_chloride_intake, 3, 0)
+      @sodium_chloride_conc = initialize_key(options, :sodium_chloride_conc, 3, 1)
+      @potassium_chloride_intake = initialize_key(options, :potassium_chloride_intake, 3, 0)
+      @potassium_chloride_conc = initialize_key(options, :potassium_chloride_conc, 3, 1)
+      @magnesium_intake = initialize_key(options, :magnesium_intake, 3, 0)
+      @magnesium_conc = initialize_key(options, :magnesium_conc, 3, 1)
+      @calcium_intake = initialize_key(options, :calcium_intake, 3, 0)
+      @calcium_conc = initialize_key(options, :calcium_conc, 3, 1)
       @administration = options.has_key?(:administration) ? options.fetch(:administration) : nil
       @feed_vol = @losses = 0
     end
@@ -119,10 +119,6 @@ module Kimaya
 
 
     def volume(intake, conc)
-      puts intake
-      puts @current_weight
-      puts @overfill_factor
-      puts conc
       round(intake * @current_weight * @overfill_factor / conc, 2)
     end
 
