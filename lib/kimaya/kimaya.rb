@@ -7,10 +7,11 @@ module Kimaya
     include KimayaCore
     #validates_with TPNValidator 
 
-    validates :day_of_tpn, :presence => {:message => :day_of_tpn_blank}
+    validates :day_of_tpn, :presence => {:message => "You have entered an invalid value for Day of TPN, please enter the correct value."}
 
     def initialize(options= {})
       @day_of_tpn = options.fetch(:day_of_tpn, 1)
+      @current_weight = options.fetch(:current_weight) {|c| round(c, 2) unless c.blank?}
     end
 
     def DayOfTPN
