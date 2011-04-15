@@ -31,7 +31,7 @@ module Kimaya
       @calcium_intake = initialize_key(options, :calcium_intake, 3)
       @calcium_conc = initialize_key(options, :calcium_conc, 3)
       @administration = options.has_key?(:administration) ? options.fetch(:administration) : nil
-      return self.errors unless self.valid?
+      return false unless self.valid?
     end
 
     def calculate_tpn 
