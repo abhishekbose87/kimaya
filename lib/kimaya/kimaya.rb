@@ -119,6 +119,10 @@ module Kimaya
 
 
     def volume(intake, conc)
+      puts intake
+      puts @current_weight
+      puts @overfill_factor
+      puts conc
       round(intake * @current_weight * @overfill_factor / conc, 2)
     end
 
