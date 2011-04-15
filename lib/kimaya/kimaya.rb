@@ -30,7 +30,7 @@ module Kimaya
       @magnesium_conc = initialize_key(options, :magnesium_conc, 3)
       @calcium_intake = initialize_key(options, :calcium_intake, 3)
       @calcium_conc = initialize_key(options, :calcium_conc, 3)
-      @administration = options.fetch(:administration)
+      @administration = options.has_key?(:administration) ? options.fetch(:administration) : nil
       self.valid?
     end
 
