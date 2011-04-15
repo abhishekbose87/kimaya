@@ -127,7 +127,7 @@ module Kimaya
     end
 
     def initialize_key(options, key, scale, default_value = nil)
-      options.has_key?(key) ? round(options.fetch(key), scale).to_f : default_value
+      options.has_key?(key) ? round(options.fetch(key), scale) : default_value
     end
   end
 end

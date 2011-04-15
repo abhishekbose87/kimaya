@@ -15,7 +15,7 @@ module Kimaya
       :cho_calories, :cnr_rate, :calories, :non_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration
 
     def round(value, scale)
-      "%.#{scale}f" % value
+      ("%.#{scale}f" % value).to_f
     end
   end
 end
