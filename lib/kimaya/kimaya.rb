@@ -11,7 +11,7 @@ module Kimaya
 
     def initialize(options= {})
       @day_of_tpn = options.fetch(:day_of_tpn, 1)
-      @current_weight = options.has_key?(:current_weight) ? round(options.fetch(:current_weight, 2)) : nil
+      @current_weight = options.has_key?(:current_weight) ? round(options.fetch(:current_weight), 2) : nil
     end
 
     def DayOfTPN
