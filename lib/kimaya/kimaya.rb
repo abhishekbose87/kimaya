@@ -119,7 +119,7 @@ module Kimaya
 
 
     def volume(intake, conc)
-      round(intake * current_weight * overfill_factor / conc, 2)
+      round(intake * @current_weight * @overfill_factor / conc, 2)
     end
 
     def total_additives
