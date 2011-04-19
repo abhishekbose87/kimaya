@@ -7,7 +7,7 @@ module Kimaya
     include KimayaCore
     #validates_with TPNValidator 
 
-    validates :day_of_tpn, :presence => {:message => "You have entered an invalid value for Day of TPN, please enter the correct value."}
+    validates :day_of_tpn, :presence => {:message => :day_of_tpn_blank}
     validates :current_weight, :percent_dextrose_conc, :total_fluid_intake, :fat_intake, :lipid_conc, :overfill_factor,
       :amino_acid_intake, :amino_acid_conc, :presence => true
 
@@ -39,6 +39,7 @@ module Kimaya
       calculate_additives
       calculate_dextrose_concentration_achieved
       calculate_calories
+      validate_results
     end
 
     private
@@ -115,6 +116,10 @@ module Kimaya
       @dextrose_50 = round(@dextrose_50, 2)
       @dextrose_10 = round(@dextrose_10, 2)
       @water = round(@water, 2)
+    end
+
+    def validate_results
+        self.errors.add(:achieved_dextrose_conc, "")
     end
 
 
