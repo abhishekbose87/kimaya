@@ -8,7 +8,8 @@ module Kimaya
     #validates_with TPNValidator 
 
     validates :day_of_tpn, :presence => {:message => :day_of_tpn_blank}
-    validates :current_weight, :percent_dextrose_conc, :total_fluid_intake, :fat_intake, :lipid_conc, :overfill_factor,
+    validates :current_weight, :presence => {:message => :day_of_tpn_blank}
+    validates :percent_dextrose_conc, :total_fluid_intake, :fat_intake, :lipid_conc, :overfill_factor,
       :amino_acid_intake, :amino_acid_conc, :presence => true
 
     def initialize(options= {})
