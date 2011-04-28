@@ -3,14 +3,18 @@ module Kimaya
 
     include ActiveModel::Validations
     include ActiveModel::Conversion
-    #extend ActiveModel::Naming
+    extend ActiveModel::Naming
     include KimayaCore
-    #validates_with TPNValidator 
 
-    validates :day_of_tpn, :presence => {:message => :day_of_tpn_blank}
-    validates :current_weight, :presence => true 
-    validates :percent_dextrose_conc, :total_fluid_intake, :fat_intake, :lipid_conc, :overfill_factor,
-      :amino_acid_intake, :amino_acid_conc, :presence => true
+    validates :day_of_tpn, :presence => {:message => "You have entered an invalid value for Day of TPN, please enter the correct value."}
+    validates :current_weight, :presence => {:message => "You have entered an invalid value for Current Weight, please enter the correct value."} 
+    validates :percent_dextrose_conc, :presence => {:message => "You have entered an invalid value for Dextrose Concentration, please enter the correct value."}
+    validates :total_fluid_intake,:presence => {:message => "You have entered an invalid value for Fluid Intake.The Recommended range is between 40 to 250 ml/kg/day."}
+    validates :fat_intake, :presence => {:message => "You have entered an invalid value for FAT Volume Intake, please enter the correct value."}
+    validates :lipid_conc, :presence => {:message => "You have not selected a value for Lipid Concentration, please select the value."}
+    validates :overfill_factor,:presence => {:message => "You have entered an invalid value for Overfill factor, please enter the correct value."}
+    validates :amino_acid_intake, :presence => {:message => "You have entered an invalid value for Amino Acid, please enter the correct value."}
+    validates :amino_acid_conc, :presence => {:message => "You have selected an invalid value for Amino Acid Concentration, please select the correct value."}
 
     def initialize(options= {})
       @day_of_tpn = initialize_key(options, :day_of_tpn, 1, 1)
@@ -31,7 +35,7 @@ module Kimaya
       @magnesium_conc = initialize_key(options, :magnesium_conc, 3, 1)
       @calcium_intake = initialize_key(options, :calcium_intake, 3, 0)
       @calcium_conc = initialize_key(options, :calcium_conc, 3, 1)
-      @administration = options.has_key?(:administration) ? options.fetch(:administration) : nil
+      @administration = options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
       @feed_vol = @losses = 0
     end
 
@@ -120,7 +124,9 @@ module Kimaya
     end
 
     def validate_results
-        self.errors.add(:achieved_dextrose_conc, "")
+      self.errors.add(:amino_acid_vol, "You have entered an invalid value for Amino Acid / Current Weight / Overfill Factor, please enter the correct value(s).") if @amino_acid_vol.nil?
+      self.errors.add(:cnr_rate, "CNR is Out of Range.The Recommended value is above 150. Do you want to continue?") if @cnr_rate.nil?
+      self.errors.add(:dir_rate, "The Dextrose Infusion Rate should always be less than 12mg/kg/min. Do you want to continue?") if @dir_rate.nil?
     end
 
 
