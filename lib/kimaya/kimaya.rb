@@ -16,26 +16,28 @@ module Kimaya
     validates :amino_acid_intake, :presence => {:message => "You have entered an invalid value for Amino Acid, please enter the correct value."}
     validates :amino_acid_conc, :presence => {:message => "You have selected an invalid value for Amino Acid Concentration, please select the correct value."}
 
-    def initialize(options= {})
-      @day_of_tpn = initialize_key(options, :day_of_tpn, 1, 1)
-      @current_weight = initialize_key(options, :current_weight, 2) 
-      @percent_dextrose_conc = initialize_key(options, :percent_dextrose_conc, 4) 
-      @total_fluid_intake =  initialize_key(options, :total_fluid_intake, 2) 
-      @losses = initialize_key(options, :losses, 2)
-      @fat_intake = initialize_key(options, :fat_intake, 2)
-      @lipid_conc = initialize_key(options, :lipid_conc, 2)
-      @overfill_factor = initialize_key(options, :overfill_factor, 2)
-      @amino_acid_intake = initialize_key(options, :amino_acid_intake, 3)
-      @amino_acid_conc = initialize_key(options, :amino_acid_conc, 3)
-      @sodium_chloride_intake = initialize_key(options, :sodium_chloride_intake, 3, 0)
-      @sodium_chloride_conc = initialize_key(options, :sodium_chloride_conc, 3, 1)
-      @potassium_chloride_intake = initialize_key(options, :potassium_chloride_intake, 3, 0)
-      @potassium_chloride_conc = initialize_key(options, :potassium_chloride_conc, 3, 1)
-      @magnesium_intake = initialize_key(options, :magnesium_intake, 3, 0)
-      @magnesium_conc = initialize_key(options, :magnesium_conc, 3, 1)
-      @calcium_intake = initialize_key(options, :calcium_intake, 3, 0)
-      @calcium_conc = initialize_key(options, :calcium_conc, 3, 1)
-      @administration = options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
+    def initialize(options= {}, &block)
+      yield self if block_given?
+
+      @day_of_tpn                ||= initialize_key(options, :day_of_tpn, 1, 1)
+      @current_weight            ||= initialize_key(options, :current_weight, 2) 
+      @percent_dextrose_conc     ||= initialize_key(options, :percent_dextrose_conc, 4) 
+      @total_fluid_intake        ||= initialize_key(options, :total_fluid_intake, 2) 
+      @losses                    ||= initialize_key(options, :losses, 2)
+      @fat_intake                ||= initialize_key(options, :fat_intake, 2, 0)
+      @lipid_conc                ||= initialize_key(options, :lipid_conc, 2, 0.1)
+      @overfill_factor           ||= initialize_key(options, :overfill_factor, 2, 1.0)
+      @amino_acid_intake         ||= initialize_key(options, :amino_acid_intake, 3)
+      @amino_acid_conc           ||= initialize_key(options, :amino_acid_conc, 3)
+      @sodium_chloride_intake    ||= initialize_key(options, :sodium_chloride_intake, 3, 0)
+      @sodium_chloride_conc      ||= initialize_key(options, :sodium_chloride_conc, 3, 1)
+      @potassium_chloride_intake ||= initialize_key(options, :potassium_chloride_intake, 3, 0)
+      @potassium_chloride_conc   ||= initialize_key(options, :potassium_chloride_conc, 3, 1)
+      @magnesium_intake          ||= initialize_key(options, :magnesium_intake, 3, 0)
+      @magnesium_conc            ||= initialize_key(options, :magnesium_conc, 3, 1)
+      @calcium_intake            ||= initialize_key(options, :calcium_intake, 3, 0)
+      @calcium_conc              ||= initialize_key(options, :calcium_conc, 3, 1)
+      @administration            ||= options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
       @feed_vol = @losses = 0
     end
 
@@ -52,9 +54,9 @@ module Kimaya
     def calculate_volumes
       @total_fluid_intake_vol = round(total_fluid_intake * current_weight, 2)
       @tpn_vol = round(total_fluid_intake_vol - feed_vol + losses, 2)
-      @fat_vol = round(fat_intake * current_weight / lipid_conc, 2) 
+      @fat_vol = round(fat_intake * current_weight / lipid_conc, 2)
       @hav_vol = round(tpn_vol - fat_vol, 2)
-      @prepared_overfill = round(hav_vol * overfill_factor, 2)
+      @prepared_overfill = round(hav_vol * overfill_factor, 1)
     end
 
     def calculate_additives
@@ -63,20 +65,22 @@ module Kimaya
       @potassium_chloride_vol = volume(potassium_chloride_intake, potassium_chloride_conc)
       @calcium_vol = volume(calcium_intake, calcium_conc)
       @magnesium_vol = volume(magnesium_intake, magnesium_conc)
-      @mvi = 0.5 * current_weight
-      @remaining_dextrose_vol = prepared_overfill - total_additives 
+      @mvi = round(0.5 * current_weight, 2)
+      @remaining_dextrose_vol = round(prepared_overfill - total_additives, 2)
     end
 
     def calculate_calories
-      @fat_calories = round(lipid_conc == 0.1 ? fat_vol : fat_vol * 2, 2)
-      @cho_calories = round(((dextrose_10 / 10) + (dextrose_50 / 2)) * 3.4, 2)
-      @cnr_rate = round(((fat_calories + cho_calories)/ (amino_acid_intake * current_weight)) * 6.25, 2)
+      @fat_calories = round(fat_vol * lipid_conc * 9.0, 2)
+      #@cho_calories = round(hav_vol * percent_dextrose_conc * 3.4, 2)
+      @cho_calories = round(((dextrose_10 / 10) + (dextrose_50 / 2)) * 3.4, 2) 
       
       tempAminoAcid = amino_acid_vol / overfill_factor
-      @calories = round(fat_calories + cho_calories + (tempAminoAcid * amino_acid_conc * 4), 2)
-      @non_protein= round(calories - (tempAminoAcid * amino_acid_conc * 4), 2)
+      @cnr_rate = round((fat_calories + cho_calories) / ((tempAminoAcid * amino_acid_conc ) /  6.25), 2)
+      @calories = round(fat_calories + cho_calories + (tempAminoAcid * amino_acid_conc * 4.0), 2)
+      @non_protein = round(calories - (tempAminoAcid * amino_acid_conc * 4.0), 2)
+      @total_protein= round(amino_acid_intake * current_weight, 2)
       
-      @dir_rate = round(((hav_vol * percent_dextrose_conc) / (24 * 60 * current_weight)) * 1000, 2)
+      @dir_rate = round(((hav_vol * percent_dextrose_conc) / (24 * 60 * current_weight)) * 1000, 1)
     end
 
     def calculate_dextrose_concentration_achieved 
@@ -85,9 +89,9 @@ module Kimaya
       dextrose_concentration = percent_dextrose_conc 
       wanted_dextrose_vol = overfill 
       achieved_dextrose_concentration = 0.0
-      old_val = 1
-      old_dex_50 = @dextrose_50 = 1
-      @water = 0
+      old_val = 1.0
+      old_dex_50 = @dextrose_50 = 1.0
+      @water = 0.0
 
       if wanted_dextrose_vol < remain_volume then
         achieved_dextrose_concentration = dextrose_concentration
@@ -105,7 +109,7 @@ module Kimaya
           old_dex_50 = dextrose_50 
           @dextrose_10 = remain_volume - dextrose_50
           if dextrose_10 < 0 then
-            raise Exception.new(t("1041"))
+            raise Exception.new(I18n.t("activemodel.1041.message"))
           end
           @dextrose_50 = dextrose_50 / 2
           @dextrose_10 = dextrose_10 / 10
@@ -115,18 +119,18 @@ module Kimaya
         end
         @dextrose_50 = old_dex_50 
         @dextrose_10 = remain_volume - dextrose_50
-
       end
-      @achieved_dextrose_conc = round(old_val, 2)
-      @dextrose_50 = round(@dextrose_50, 2)
-      @dextrose_10 = round(@dextrose_10, 2)
+      @achieved_dextrose_conc = round(old_val * 100, 1)
+      @dextrose_50 = round(@dextrose_50, 1)
+      @dextrose_10 = round(@dextrose_10, 1)
       @water = round(@water, 2)
+      @remaining_dextrose_vol = round(@remaining_dextrose_vol, 2)
     end
 
     def validate_results
       self.errors.add(:amino_acid_vol, "You have entered an invalid value for Amino Acid / Current Weight / Overfill Factor, please enter the correct value(s).") if @amino_acid_vol.nil?
-      self.errors.add(:cnr_rate, "CNR is Out of Range.The Recommended value is above 150. Do you want to continue?") if @cnr_rate.nil?
-      self.errors.add(:dir_rate, "The Dextrose Infusion Rate should always be less than 12mg/kg/min. Do you want to continue?") if @dir_rate.nil?
+      self.errors.add(:cnr_rate, "CNR is Out of Range.The Recommended value is above 150. Do you want to continue?") if @cnr_rate.nil? || @cnr_rate <= 150.0
+      self.errors.add(:dir_rate, "The Dextrose Infusion Rate should always be less than 12mg/kg/min. Do you want to continue?") if @dir_rate.nil? || @dir_rate > 12.0
     end
 
 
@@ -142,5 +146,6 @@ module Kimaya
     def initialize_key(options, key, scale, default_value = nil)
       options.has_key?(key) ? round(options.fetch(key), scale) : default_value
     end
+
   end
 end
