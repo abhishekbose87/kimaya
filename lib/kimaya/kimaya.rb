@@ -1,28 +1,17 @@
 module Kimaya
   class TPNCalc
-
-    include ActiveModel::Validations
-    include ActiveModel::Conversion
-    extend ActiveModel::Naming
     include KimayaCore
 
-    validates :day_of_tpn, :presence => {:message => "You have entered an invalid value for Day of TPN, please enter the correct value."}
-    validates :current_weight, :presence => {:message => "You have entered an invalid value for Current Weight, please enter the correct value."} 
-    validates :percent_dextrose_conc, :presence => {:message => "You have entered an invalid value for Dextrose Concentration, please enter the correct value."}
-    validates :total_fluid_intake,:presence => {:message => "You have entered an invalid value for Fluid Intake.The Recommended range is between 40 to 250 ml/kg/day."}
-    validates :fat_intake, :presence => {:message => "You have entered an invalid value for FAT Volume Intake, please enter the correct value."}
-    validates :lipid_conc, :presence => {:message => "You have not selected a value for Lipid Concentration, please select the value."}
-    validates :overfill_factor,:presence => {:message => "You have entered an invalid value for Overfill factor, please enter the correct value."}
-    validates :amino_acid_intake, :presence => {:message => "You have entered an invalid value for Amino Acid, please enter the correct value."}
-    validates :amino_acid_conc, :presence => {:message => "You have selected an invalid value for Amino Acid Concentration, please select the correct value."}
+    MAX_DIR = 12.0
+    MIN_CNR = 150.0
 
     def initialize(options= {}, &block)
       yield self if block_given?
 
       @day_of_tpn                ||= initialize_key(options, :day_of_tpn, 1, 1)
       @current_weight            ||= initialize_key(options, :current_weight, 2) 
-      @percent_dextrose_conc     ||= initialize_key(options, :percent_dextrose_conc, 4) 
-      @total_fluid_intake        ||= initialize_key(options, :total_fluid_intake, 2) 
+      @percent_dextrose_conc     ||= initialize_key(options, :percent_dextrose_conc, 4, 0.1) 
+      @total_fluid_intake        ||= initialize_key(options, :total_fluid_intake, 2, 0) 
       @losses                    ||= initialize_key(options, :losses, 2)
       @fat_intake                ||= initialize_key(options, :fat_intake, 2, 0)
       @lipid_conc                ||= initialize_key(options, :lipid_conc, 2, 0.1)
@@ -39,6 +28,7 @@ module Kimaya
       @calcium_conc              ||= initialize_key(options, :calcium_conc, 3, 1)
       @administration            ||= options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
       @feed_vol = @losses = 0
+      @errors   = []
     end
 
     def calculate_tpn 
@@ -73,13 +63,13 @@ module Kimaya
       @fat_calories = round(fat_vol * lipid_conc * 9.0, 2)
       #@cho_calories = round(hav_vol * percent_dextrose_conc * 3.4, 2)
       @cho_calories = round(((dextrose_10 / 10) + (dextrose_50 / 2)) * 3.4, 2) 
-      
+
       tempAminoAcid = amino_acid_vol / overfill_factor
       @cnr_rate = round((fat_calories + cho_calories) / ((tempAminoAcid * amino_acid_conc ) /  6.25), 2)
       @calories = round(fat_calories + cho_calories + (tempAminoAcid * amino_acid_conc * 4.0), 2)
       @non_protein = round(calories - (tempAminoAcid * amino_acid_conc * 4.0), 2)
       @total_protein= round(amino_acid_intake * current_weight, 2)
-      
+
       @dir_rate = round(((hav_vol * percent_dextrose_conc) / (24 * 60 * current_weight)) * 1000, 1)
     end
 
@@ -109,7 +99,7 @@ module Kimaya
           old_dex_50 = dextrose_50 
           @dextrose_10 = remain_volume - dextrose_50
           if dextrose_10 < 0 then
-            raise Exception.new(I18n.t("activemodel.1041.message"))
+            @errors << "1041" 
           end
           @dextrose_50 = dextrose_50 / 2
           @dextrose_10 = dextrose_10 / 10
@@ -128,9 +118,17 @@ module Kimaya
     end
 
     def validate_results
-      self.errors.add(:amino_acid_vol, "You have entered an invalid value for Amino Acid / Current Weight / Overfill Factor, please enter the correct value(s).") if @amino_acid_vol.nil?
-      self.errors.add(:cnr_rate, "CNR is Out of Range.The Recommended value is above 150. Do you want to continue?") if @cnr_rate.nil? || @cnr_rate <= 150.0
-      self.errors.add(:dir_rate, "The Dextrose Infusion Rate should always be less than 12mg/kg/min. Do you want to continue?") if @dir_rate.nil? || @dir_rate > 12.0
+      @errors << "1017" if @amino_acid_vol.nil?
+      @errors << "1037" if @cnr_rate.nil? || @cnr_rate <= MIN_CNR 
+      @errors << "1040" if @dir_rate.nil? || @dir_rate > MAX_DIR 
+      
+      self.instance_variables.each do |variable|
+        val = self.instance_variable_get(variable)
+        variable = variable.to_s.gsub('@', '').to_sym
+        @errors << KimayaCore::ERROR_CODES[variable] if (val.is_a?(Fixnum) || val.is_a?(Float))&& val < 0
+      end
+      
+      @errors.empty?
     end
 
 

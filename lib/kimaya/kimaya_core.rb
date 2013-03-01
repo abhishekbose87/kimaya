@@ -1,5 +1,3 @@
-require  File.dirname(__FILE__) + '/validator'
-
 module Kimaya
   module KimayaCore
     attr_accessor :day_of_tpn, :current_weight, 
@@ -14,55 +12,21 @@ module Kimaya
       :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
       :cho_calories, :cnr_rate, :calories, :total_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration, :non_protein
 
-    attr_accessor :post_validations
+    attr_accessor :errors
     def round(value, scale)
       ("%.#{scale}f" % value).to_f
     end
+
+    ERROR_CODES = {
+      percent_dextrose_conc: "1002", current_weight: "1003", total_fluid_intake: "1004", total_fluid_intake_vol: "1005",
+      feed_vol: "1006", losses: "1007", tpn_vol: "1008", fat_intake: "1009", fat_vol: "1011", lipid_conc: "1010", 
+      hav_vol: "1012", overfill_factor: "1013", prepared_overfill: "1014", amino_acid_intake: "1015", amino_acid_conc: "1016",
+      amino_acid_vol: "1017", sodium_chloride_intake: "1018", sodium_chloride_conc: "1019", sodium_chloride_vol: "1020",
+      potassium_chloride_intake: "1021", potassium_chloride_conc: "1022", potassium_chloride_vol: "1023", calcium_intake: "1024",
+      calcium_conc: "1025", calcium_vol: "1026", magnesium_intake: "1027", magnesium_conc: "1028", magnesium_vol: "1029",
+      mvi: "1032", remaining_dextrose_vol: "1033", achieved_dextrose_conc: "1034", fat_calories: "1035", cho_calories: "1036",
+      cnr_rate: "1037", calories: "1039", dir_rate: "1040", dextrose_10: "1041", dextrose_50: "1042", heparin: "1044"
+    }
   end
 end
 
-=begin
-  @invalidValue = -1
-  @invalidDayOfTPN = "1001"
-  @invalidPercentDextroseConcentration = "1002"
-  @invalidCurrentWeight = "1003"
-  @invalidTotalFluidIntake = "1004"
-  @invalidTotalFluidIntakeVolume = "1005"
-  @invalidFeedVolume = "1006"
-  @invalidLosses = "1007"
-  @invalidTPNVolume = "1008"
-  @invalidFATVolumeIntake = "1009"
-  @invalidLipidConcentration = "1010"
-  @invalidFATVolume = "1011"
-  @invalidHAVSolution = "1012"
-  @invalidOverfillFactor = "1013"
-  @invalidPreparedOverfill = "1014"
-  @invalidAminoAcidIntake = "1015"
-  @invalidAminoAcidConcentration = "1016"
-  @invalidAminoAcid = "1017"
-  @invalidSodiumChlorideIntake = "1018"
-  @invalidSodiumChlorideConcentration = "1019"
-  @invalidSodiumChloride = "1020"
-  @invalidPotassiumChlorideIntake = "1021"
-  @invalidPotassiumChlorideConcentration = "1022"
-  @invalidPotassiumChloride = "1023"
-  @invalidCalciumIntake = "1024"
-  @invalidCalciumConcentration = "1025"
-  @invalidCalcium = "1026"
-  @invalidMagnesiumIntake = "1027"
-  @invalidMagnesiumConcentration = "1028"
-  @invalidMagnesium = "1029"
-  @invalidMVI = "1032"
-  @invalidRemainingDextroseVolume = "1033"
-  @invalidAchievedPercentDextroseConcentration = "1034"
-  @invalidFATCalories = "1035"
-  @invalidCHOCalories = "1036"
-  @invalidCNRRate = "1037"
-  @invalidProteinLevel = "1038"
-  @invalidCalories = "1039"
-  @invalidDIRRate = "1040"
-  @invalidDextrose10 = "1041"
-  @invalidDextrose50 = "1042"
-  @invalidWater = "1043"
-  @invalidHeparin = "1044"
-=end
