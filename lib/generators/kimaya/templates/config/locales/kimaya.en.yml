@@ -94,6 +94,9 @@ en:
     "1029":
       message: "You have entered an invalid value for Magnesium / Current Weight / Overfill Factor, please enter the correct value(s)."
       comment: "invalidMagnesium"
+    "1033":
+      message: "Fluid Intake is too less (%{fluid_intake}) or Sum of Additives is too high (%{additives} ml)"
+      comment: 
     "1037":
       message: "CNR is Out of Range.The Recommended value is above 150. Do you want to continue?"
       comment: "invalidCNRRate"

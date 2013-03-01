@@ -1,0 +1,2 @@
+ Kimaya initializer to copy some configuration values, just do:
+    rails generate kimaya:install
