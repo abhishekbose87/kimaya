@@ -12,7 +12,7 @@ module Kimaya
       :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
       :cho_calories, :cnr_rate, :calories, :total_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration, :non_protein
 
-    attr_accessor :errors
+    attr_accessor :errors, :warnings
     def round(value, scale)
       ("%.#{scale}f" % value).to_f
     end

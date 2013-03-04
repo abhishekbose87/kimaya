@@ -28,7 +28,7 @@ module Kimaya
       @calcium_conc              ||= initialize_key(options, :calcium_conc, 3, 1)
       @administration            ||= options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
       @feed_vol = @losses = 0
-      @errors   = []
+      @errors   = @warnings = []
     end
 
     def calculate_tpn 
@@ -118,9 +118,9 @@ module Kimaya
     end
 
     def validate_results
-      @errors << "1017" if @amino_acid_vol.nil?
-      @errors << "1037" if @cnr_rate.nil? || @cnr_rate <= MIN_CNR 
-      @errors << "1040" if @dir_rate.nil? || @dir_rate > MAX_DIR 
+      @errors   << "1017" if @amino_acid_vol.nil?
+      @warnings << "1037" if @cnr_rate.nil? || @cnr_rate <= MIN_CNR 
+      @warnings << "1040" if @dir_rate.nil? || @dir_rate > MAX_DIR 
       
       self.instance_variables.each do |variable|
         val = self.instance_variable_get(variable)
@@ -128,7 +128,7 @@ module Kimaya
         @errors << KimayaCore::ERROR_CODES[variable] if (val.is_a?(Fixnum) || val.is_a?(Float))&& val < 0
       end
       
-      @errors.empty?
+      @errors.empty? || @warnings.empty?
     end
 
 
@@ -144,6 +144,5 @@ module Kimaya
     def initialize_key(options, key, scale, default_value = nil)
       options.has_key?(key) ? round(options.fetch(key), scale) : default_value
     end
-
   end
 end
