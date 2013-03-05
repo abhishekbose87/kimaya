@@ -119,6 +119,24 @@ module Kimaya
                   achieved_dextrose_conc: 9.9, fat_calories: 28.08, cho_calories: 93.43, cnr_rate: 224.69, non_protein: 121.51, 
                   total_protein: 3.38, dir_rate: 6.1, heparin: 0.27})
       end
+
+      it  "test CNR warning" do
+        build_tpn({current_weight: 0.5, percent_dextrose_conc: 0.1, total_fluid_intake: 50,
+                  overfill_factor: 1.2, amino_acid_intake: 0.9, amino_acid_conc: 0.05})
+        @tpn.calculate_tpn
+        @tpn.errors.empty?.should == true
+        @tpn.warnings.empty?.should_not == true
+        @tpn.warnings.include? "1037"
+      end
+
+      it  "test DIR warning" do
+        build_tpn({current_weight: 1.2, percent_dextrose_conc: 0.1, total_fluid_intake: 180,
+                  overfill_factor: 1.2, amino_acid_intake: 0.6, amino_acid_conc: 0.05})
+        @tpn.calculate_tpn
+        @tpn.errors.empty?.should == true
+        @tpn.warnings.empty?.should_not == true
+        @tpn.warnings.include? "1040"
+      end
     end
   end
 end

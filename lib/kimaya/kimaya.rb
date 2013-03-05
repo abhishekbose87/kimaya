@@ -27,8 +27,10 @@ module Kimaya
       @calcium_intake            ||= initialize_key(options, :calcium_intake, 3, 0)
       @calcium_conc              ||= initialize_key(options, :calcium_conc, 3, 1)
       @administration            ||= options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
-      @feed_vol = @losses = 0
-      @errors   = @warnings = []
+      @feed_vol = 0
+      @losses   = 0
+      @errors   = []
+      @warnings = []
     end
 
     def calculate_tpn 
@@ -125,9 +127,8 @@ module Kimaya
       self.instance_variables.each do |variable|
         val = self.instance_variable_get(variable)
         variable = variable.to_s.gsub('@', '').to_sym
-        @errors << KimayaCore::ERROR_CODES[variable] if (val.is_a?(Fixnum) || val.is_a?(Float))&& val < 0
+        @errors << KimayaCore::ERROR_CODES[variable] if (val.is_a?(Fixnum) || val.is_a?(Float)) && val < 0
       end
-      
       @errors.empty? || @warnings.empty?
     end
 
