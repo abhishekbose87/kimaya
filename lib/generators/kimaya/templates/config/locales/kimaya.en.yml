@@ -118,6 +118,9 @@ en:
     "1504":
       message: "Sum of Additive Nutrients are 0.Do you want to continue?"
       comment: "totalAdditiveNutrients"
+    "1505":
+      message: "The dextrose concentration is not achievable. Please change the dextrose concentration/DIR and try again."
+      comment: "invalidDextroseConcentration"
 
   help:
     "101":

@@ -10,7 +10,7 @@ module Kimaya
       :calcium_intake, :calcium_conc, :calcium_vol,
       :magnesium_intake, :magnesium_conc, :magnesium_vol,
       :mvi, :remaining_dextrose_vol, :achieved_dextrose_conc, :fat_calories,
-      :cho_calories, :cnr_rate, :calories, :total_protein,:dir_rate, :dextrose_10, :dextrose_50, :water, :heparin, :administration, :non_protein
+      :cho_calories, :cnr_rate, :calories, :total_protein,:dir_rate, :dextrose_concentrations, :water, :heparin, :administration, :non_protein,         :expected_dir, :available_dextrose_concentrations
 
     attr_accessor :errors, :warnings
     def round(value, scale)
