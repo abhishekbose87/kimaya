@@ -29,6 +29,7 @@ module Kimaya
       @calcium_intake            ||= initialize_key(options, :calcium_intake, 3, 0)
       @calcium_conc              ||= initialize_key(options, :calcium_conc, 3, 1)
       @expected_dir              ||= initialize_key(options, :expected_dir, 1, 0.0)
+      @other_infusions          ||= initialize_key(options, :other_infusions, 2, 0.0)
       @administration            ||= options.has_key?(:administration) ? options.fetch(:administration) : "Peripheral Line" 
       @available_dextrose_concentrations ||= options.has_key?(:available_dextrose_concentrations) ? options.fetch(:available_dextrose_concentrations) : [:dextrose_50, :dextrose_10]
       @feed_vol = 0
@@ -49,10 +50,11 @@ module Kimaya
     private
 
     def calculate_volumes
+      @other_infusions = round(other_infusions * 24, 2)
       @total_fluid_intake_vol = round(total_fluid_intake * current_weight, 2)
       @tpn_vol = round(total_fluid_intake_vol - feed_vol + losses, 2)
       @fat_vol = round(fat_intake * current_weight / lipid_conc, 2)
-      @hav_vol = round(tpn_vol - fat_vol, 2)
+      @hav_vol = round(tpn_vol - fat_vol - other_infusions, 2)
       @prepared_overfill = round(hav_vol * overfill_factor, 1)
     end
 
@@ -120,6 +122,8 @@ module Kimaya
         variable = variable.to_s.gsub('@', '').to_sym
         @errors << KimayaCore::ERROR_CODES[variable] if (val.is_a?(Fixnum) || val.is_a?(Float)) && val < 0
       end
+
+      @errors.uniq!
       @errors.empty? || @warnings.empty?
     end
 

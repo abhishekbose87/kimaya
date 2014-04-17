@@ -18,16 +18,17 @@ module Kimaya
 
       it  "test latest test and test" do
         build_tpn({current_weight: 1.2, percent_dextrose_conc: 0.1, total_fluid_intake: 125, fat_intake: 0.5,
-                  lipid_conc: 0.1, overfill_factor: 1.2, amino_acid_intake: 0.5, amino_acid_conc: 0.05})
+                  lipid_conc: 0.1, overfill_factor: 1.2, amino_acid_intake: 0.5, amino_acid_conc: 0.05, other_infusions: 2})
         @tpn.calculate_tpn
+        
         @tpn.errors.empty?.should == true
         match_results({current_weight: 1.2, percent_dextrose_conc: 0.1, total_fluid_intake: 125, fat_intake: 0.5,
                   lipid_conc: 0.1, overfill_factor: 1.2, amino_acid_intake: 0.5, amino_acid_conc: 0.05, 
-                  total_fluid_intake_vol: 150.0, tpn_vol: 150.0, fat_vol: 6.0, hav_vol: 144.0, prepared_overfill: 172.8, 
+                  total_fluid_intake_vol: 150.0, tpn_vol: 150.0, fat_vol: 6.0, hav_vol: 96.0, prepared_overfill: 115.2, 
                   amino_acid_vol: 14.4, sodium_chloride_vol: 0.0, potassium_chloride_vol: 0.0, calcium_vol: 0.0, magnesium_vol: 0.0, 
-                  mvi: 0.6, heparin: 0, remaining_dextrose_vol: 157.8, dextrose_concentrations: {dextrose_10: 153.8, dextrose_50: 4.0}, 
-                  achieved_dextrose_conc: 9.8, fat_calories: 5.4, cho_calories: 59.09, cnr_rate: 671.77, non_protein: 64.49, 
-                  total_protein: 0.6, dir_rate: 8.3})
+                  mvi: 0.6, heparin: 0, remaining_dextrose_vol: 100.2, dextrose_concentrations: {dextrose_10: 96.2, dextrose_50: 4.0}, 
+                  achieved_dextrose_conc: 9.7, fat_calories: 5.4, cho_calories: 39.51, cnr_rate: 467.81, non_protein: 44.91, 
+                  total_protein: 0.6, dir_rate: 5.6})
       end
 
       it  "test Zoting preeti santosh" do

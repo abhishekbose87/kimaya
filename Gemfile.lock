@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kimaya (0.0.5)
+    kimaya (0.0.6)
       activemodel
       activesupport
       i18n
@@ -9,16 +9,15 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (4.0.2)
-      activesupport (= 4.0.2)
+    activemodel (4.0.4)
+      activesupport (= 4.0.4)
       builder (~> 3.1.0)
-    activesupport (4.0.2)
-      i18n (~> 0.6, >= 0.6.4)
+    activesupport (4.0.4)
+      i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    atomic (1.1.14)
     builder (3.1.4)
     columnize (0.3.6)
     debugger (1.6.5)
@@ -30,7 +29,7 @@ GEM
     diff-lcs (1.1.3)
     i18n (0.6.9)
     minitest (4.7.5)
-    multi_json (1.8.2)
+    multi_json (1.9.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -39,9 +38,8 @@ GEM
     rspec-expectations (2.11.3)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.11.3)
-    thread_safe (0.1.3)
-      atomic
-    tzinfo (0.3.38)
+    thread_safe (0.3.3)
+    tzinfo (0.3.39)
 
 PLATFORMS
   ruby
