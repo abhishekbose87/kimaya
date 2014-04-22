@@ -99,7 +99,7 @@ module Kimaya
         old_val = achieved_dextrose_concentration
         old_dextrose_1 = dextrose_1
         dextrose_2   = remain_volume - dextrose_1
-        #@errors << "1041" if dextrose_10 < 0 
+        @errors << "1033" if dextrose_1 < 0 
         dextrose_1 = dextrose_1 / CONCENTRATIONS[dextrose_conc_1]
         dextrose_2 = dextrose_2 / CONCENTRATIONS[dextrose_conc_2]
         achieved_dextrose_concentration = (dextrose_1 + dextrose_2) / overfill
