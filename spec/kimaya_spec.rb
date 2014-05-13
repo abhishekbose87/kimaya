@@ -175,6 +175,15 @@ module Kimaya
                   total_protein: 3.38, dir_rate: 6.9, heparin: 0.31})
       end
 
+      it  "test total_fluid_intake as 1 with DIR input" do
+        build_tpn({current_weight: 2.6, expected_dir: 7.0, total_fluid_intake: 1,
+                  overfill_factor: 1.2, amino_acid_intake: 1.3, amino_acid_conc: 0.1, sodium_chloride_intake: 8,sodium_chloride_conc: 3.3,
+                  potassium_chloride_intake: 0, potassium_chloride_conc: 2, calcium_intake: 2, calcium_conc: 0.45,
+                  magnesium_intake: 0.3, magnesium_conc: 4, administration: "Central Line"})
+        @tpn.calculate_tpn
+        expect(@tpn.errors.include? "1033").to be_true
+      end
+
       it "Expected dir is less than actual" do
         build_tpn({current_weight: 1.2, expected_dir: 7.3, total_fluid_intake: 125, fat_intake: 0.5,
                   lipid_conc: 0.1, overfill_factor: 1.2, amino_acid_intake: 0.5, amino_acid_conc: 0.05})

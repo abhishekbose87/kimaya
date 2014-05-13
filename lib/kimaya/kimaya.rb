@@ -83,7 +83,6 @@ module Kimaya
 
     def calculate_dextrose_concentration_achieved
       calculate_percent_dextrose_conc
-
       remain_volume = remaining_dextrose_vol 
       overfill = prepared_overfill 
       dextrose_concentration = @percent_dextrose_conc 
@@ -143,14 +142,14 @@ module Kimaya
 
     def calculate_percent_dextrose_conc
       @dir_rate = round(((hav_vol * @percent_dextrose_conc) / (24 * 60 * current_weight)) * 1000, 1)
-
       if @expected_dir > 0.0 
+        value = ((@dir_rate - @expected_dir).abs > 3) ? 0.01 : 0.001
         if @dir_rate < @expected_dir
           # if dir_rate is less than expected dir then increase percent_dextrose_conc
-          recalculate_dir(@percent_dextrose_conc, :+, 0.001)
+          recalculate_dir(@percent_dextrose_conc, :+, value)
         elsif @dir_rate > @expected_dir
           # if dir_rate is more than expected dir then decrease percent_dextrose_conc
-          recalculate_dir(@percent_dextrose_conc, :-, 0.001)
+          recalculate_dir(@percent_dextrose_conc, :-, value)
         end
       end
     end
@@ -159,6 +158,7 @@ module Kimaya
       return if @dir_rate == @expected_dir
       @percent_dextrose_conc = round([percent_dextrose_conc, value].reduce(operator),4)
       @dir_rate = round(((hav_vol * @percent_dextrose_conc) / (24 * 60 * current_weight)) * 1000, 1)
+      value = ((@dir_rate - @expected_dir).abs > 3) ? 0.01 : 0.001
       recalculate_dir(@percent_dextrose_conc, operator, value)
     end
   end
