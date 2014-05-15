@@ -64,7 +64,7 @@ module Kimaya
       @potassium_chloride_vol = volume(potassium_chloride_intake, potassium_chloride_conc)
       @calcium_vol = volume(calcium_intake, calcium_conc)
       @magnesium_vol = volume(magnesium_intake, magnesium_conc)
-      @mvi = round(0.5 * current_weight, 2)
+      @mvi = round(0.5 * current_weight, 2) * overfill_factor
       @remaining_dextrose_vol = round(prepared_overfill - total_additives, 2)
     end
 
